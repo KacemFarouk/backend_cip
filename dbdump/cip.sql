@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  lun. 04 juin 2018 à 12:19
+-- Généré le :  mer. 06 juin 2018 à 15:16
 -- Version du serveur :  10.1.31-MariaDB
 -- Version de PHP :  7.2.3
 
@@ -22,6 +22,16 @@ SET time_zone = "+00:00";
 -- Base de données :  `cip`
 --
 
+DELIMITER $$
+--
+-- Fonctions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `setSMRT` () RETURNS INT(11) NO SQL
+    DETERMINISTIC
+RETURN @vSMRT$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -30,9 +40,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cip` (
   `numero` int(11) NOT NULL,
-  `collaborateurs` varchar(255) NOT NULL,
-  `matricule` int(11) NOT NULL,
-  `service` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `natureGain` int(11) NOT NULL,
   `valeurGain` float NOT NULL,
@@ -40,40 +47,22 @@ CREATE TABLE `cip` (
   `prime` double NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `etat` varchar(255) NOT NULL DEFAULT 'encours',
-  `poste` int(11) NOT NULL,
-  `controlling` int(11) NOT NULL DEFAULT '28'
+  `controlling` int(11) NOT NULL DEFAULT '2'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `cip`
 --
 
-INSERT INTO `cip` (`numero`, `collaborateurs`, `matricule`, `service`, `description`, `natureGain`, `valeurGain`, `points`, `prime`, `date`, `etat`, `poste`, `controlling`) VALUES
-(1, 'farouk kacem', 27, '24', 'teeeeeeeeeeeeeest', 2, 0, 0, 0, '2018-05-18 11:20:39', 'encours', 0, 27),
-(2, 'farouk kacem', 27, '24', 'hhhhh', 1, 6000000000, 0, 0, '2018-05-18 11:21:56', 'encours', 30, 27),
-(3, 'farouk kacem', 27, '24', 'jhf', 0, 5, 5, 5, '2018-05-19 12:31:54', 'encours', 30, 0),
-(4, 'farouk kacem', 27, '24', 'gjfh', 0, 5, 5, 5, '2018-05-19 12:33:14', 'encours', 30, 27),
-(5, 'farouk kacem', 27, '24', 'bbbbbbbbb', 0, 5, 99, 5, '2018-05-19 12:34:35', 'encours', 30, 0),
-(6, 'undefined undefined', 30, 'undefined', 'undefined', 0, 8, 0, 0, '2018-05-21 13:50:34', 'encours', 30, 0),
-(7, 'undefined undefined', 28, 'undefined', 'undefined', 0, 2000, 0, 0, '2018-05-22 08:04:36', 'valid2', 30, 0),
-(8, 'undefined undefined', 27, 'undefined', 'hhhhhh', 2, 7, 0, 0, '2018-05-22 08:13:33', 'encours', 30, 0),
-(9, 'hjc', 30, '23', 'j', 1, 88, 888, 88, '2018-05-22 09:16:49', 'encours', 0, 29),
-(10, 'hjf', 27, '24', 'jgk,n', 1, 88, 99, 9, '2018-05-22 09:17:41', 'encours', 9, 30),
-(11, 'test', 30, '23', 'test', 1, 55, 55, 55, '2018-05-24 13:04:34', 'encours', 5, 27),
-(12, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-05-28 12:26:04', 'encours', 0, 28),
-(13, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-05-28 12:28:01', 'encours', 0, 28),
-(14, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-05-28 12:33:06', 'encours', 0, 28),
-(15, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-05-28 12:34:02', 'encours', 0, 28),
-(16, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-05-28 12:46:01', 'encours', 0, 28),
-(17, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-05-28 12:51:57', 'encours', 0, 28),
-(18, '', 0, '', 'xxxxxxxxxxxxxxxxx', 2, 0, 0, 0, '2018-05-28 12:54:44', 'encours', 0, 28),
-(19, '', 0, '', 'waaaaa', 3, 0, 0, 0, '2018-05-28 13:05:39', 'encours', 0, 28),
-(20, '', 0, '', '1004', 3, 0, 0, 0, '2018-05-28 13:11:10', 'encours', 0, 28),
-(21, '', 0, '', 'kkkkkkkkk', 1, 0, 0, 0, '2018-05-28 13:13:22', 'encours', 0, 28),
-(22, '', 0, '', '77', 1, 0, 0, 0, '2018-05-28 13:21:32', 'encours', 0, 28),
-(23, '', 0, '', 'vvvvvv', 2, 0, 0, 0, '2018-05-28 13:25:59', 'encours', 0, 28),
-(24, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-06-03 13:40:51', 'encours', 0, 28),
-(25, '', 0, '', 'undefined', 0, 0, 0, 0, '2018-06-04 03:11:13', 'encours', 0, 28);
+INSERT INTO `cip` (`numero`, `description`, `natureGain`, `valeurGain`, `points`, `prime`, `date`, `etat`, `controlling`) VALUES
+(1, 'this is the description of cip numero 1', 3, 0, 0, 0, '2018-06-06 01:20:46', 'encours', 2),
+(2, 'this is the description of cip numero 2', 8, 0, 0, 0, '2018-06-06 01:22:17', 'encours', 9),
+(3, 'this is the description of cip numero 3', 1, 0, 0, 0, '2018-06-06 01:22:29', 'encours', 11),
+(4, 'this is the description of cip numero 4', 2, 0, 0, 0, '2018-06-06 01:22:53', 'encours', 2),
+(5, 'this is the description of cip numero 5', 4, 0, 0, 0, '2018-06-06 01:23:11', 'encours', 2),
+(6, 'this is the description of cip numero 6', 1, 0, 0, 0, '2018-06-06 01:23:31', 'encours', 11),
+(7, 'this is the description of cip numero 7', 3, 0, 0, 0, '2018-06-06 01:23:50', 'encours', 2),
+(8, 'this is the description of cip numero 8', 8, 0, 0, 0, '2018-06-06 01:24:04', 'encours', 9);
 
 -- --------------------------------------------------------
 
@@ -82,36 +71,31 @@ INSERT INTO `cip` (`numero`, `collaborateurs`, `matricule`, `service`, `descript
 --
 
 CREATE TABLE `cip_user` (
+  `id` int(11) NOT NULL,
   `numcip` int(11) NOT NULL,
   `iduser` int(11) NOT NULL,
-  `id` int(11) NOT NULL,
-  `contribution` int(11) NOT NULL
+  `date_affectation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `cip_user`
 --
 
-INSERT INTO `cip_user` (`numcip`, `iduser`, `id`, `contribution`) VALUES
-(3, 28, 2, 0),
-(5, 28, 3, 0),
-(78, 28, 5, 20),
-(78, 28, 6, 20),
-(3, 27, 7, 0),
-(3, 27, 8, 0),
-(0, 27, 9, 0),
-(0, 28, 10, 0),
-(0, 28, 11, 0),
-(0, 30, 12, 0),
-(0, 27, 13, 0),
-(3, 27, 14, 0),
-(3, 27, 15, 0),
-(3, 27, 16, 0),
-(3, 27, 17, 0),
-(3, 27, 18, 0),
-(0, 27, 19, 0),
-(0, 28, 20, 0),
-(0, 28, 21, 0);
+INSERT INTO `cip_user` (`id`, `numcip`, `iduser`, `date_affectation`) VALUES
+(1, 1, 3, '2018-06-06 09:20:38'),
+(2, 1, 4, '2018-06-06 09:21:00'),
+(3, 1, 5, '2018-06-06 09:21:09'),
+(4, 2, 3, '2018-06-06 09:21:14'),
+(5, 3, 4, '2018-06-06 09:21:20'),
+(6, 3, 5, '2018-06-06 09:21:22'),
+(7, 4, 3, '2018-06-06 09:21:31'),
+(8, 4, 5, '2018-06-06 09:21:35'),
+(9, 5, 2, '2018-06-06 09:21:43'),
+(10, 6, 3, '2018-06-06 09:22:14'),
+(11, 6, 5, '2018-06-06 09:22:19'),
+(12, 7, 3, '2018-06-06 09:22:24'),
+(13, 8, 7, '2018-06-06 09:22:31'),
+(14, 8, 4, '2018-06-06 09:22:35');
 
 -- --------------------------------------------------------
 
@@ -122,7 +106,7 @@ INSERT INTO `cip_user` (`numcip`, `iduser`, `id`, `contribution`) VALUES
 CREATE TABLE `departement` (
   `id` int(11) NOT NULL,
   `serviceName` varchar(255) NOT NULL,
-  `SMRT` int(11) NOT NULL
+  `SMRT` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -130,10 +114,23 @@ CREATE TABLE `departement` (
 --
 
 INSERT INTO `departement` (`id`, `serviceName`, `SMRT`) VALUES
-(23, 'a', 2),
-(24, 'b', 3),
-(25, 'c', 4),
-(26, 'd', 4);
+(1, 'HR', '13'),
+(2, 'PPE-CC', '14'),
+(3, 'Direction Quality', '15'),
+(4, 'Supply Chain', '16'),
+(6, 'Audi', '17'),
+(7, 'IM', '18'),
+(8, 'LPS plus', '8'),
+(9, 'MMC', ''),
+(10, 'Managing Director', ''),
+(11, 'VW', ''),
+(12, 'AC(Asian Customer)', ''),
+(13, 'Sys App LTN1', ''),
+(14, 'Commercial Managing Direction', ''),
+(15, 'Shared Service Hub', ''),
+(16, 'General Administration', ''),
+(17, 'KSK Project MEB', ''),
+(18, 'Autarks MEB', '');
 
 -- --------------------------------------------------------
 
@@ -151,8 +148,14 @@ CREATE TABLE `gain` (
 --
 
 INSERT INTO `gain` (`id`, `natureGain`) VALUES
-(1, 'invest.'),
-(2, 'conso.');
+(1, 'MOD'),
+(2, 'Matière'),
+(3, 'Invest.'),
+(4, 'Conso.'),
+(5, 'Transp.'),
+(6, 'Qualité'),
+(7, 'Déchet'),
+(8, 'Autres');
 
 -- --------------------------------------------------------
 
@@ -176,10 +179,51 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`matricule`, `nom`, `prenom`, `service`, `points`, `statut`, `email`, `password`) VALUES
-(27, 'farouk', 'kacem', 24, 1004, 'user', 'c', 'c'),
-(28, 'farouk', 'test', 23, 24, 'user', 'SMRT', 'SMRT'),
-(30, 'ghkckh', 'hkgchg', 24, 25, 'user', 'f', 'f'),
-(31, 'test', 'test', 23, 44, 'admin', 'test', 'test');
+(1, 'KACEM', 'farouk', 1, 0, 'admin', 'farouk.kcm95@gmail.com', 'toto'),
+(2, 'BEDOUI', 'rami', 7, 0, 'controlling', 'rami_bedoui@gmail.com', 'toto'),
+(3, 'JMAL', 'ammar', 8, 0, 'user', 'ammarjmel06@gmail.com', 'toto'),
+(4, 'BOUZID', 'noureddine', 7, 0, 'user', 'nouredine07@gmail.com', 'toto'),
+(5, 'ATTIA', 'aycha', 4, 0, 'user', 'attia92@gmail.com', 'toto'),
+(8, 'FEHRI', 'sami', 8, 0, 'SMRT', 'sami_fehri@gmail.com', 'toto'),
+(9, 'WERTANI', 'nawfel', 3, 0, 'controlling', 'wertani99@gmail.com', 'toto'),
+(10, 'MSAKNI', 'youssef', 12, 0, 'headOfControlling', 'youssef95@gmail.com', 'toto'),
+(11, 'SLITI', 'naim', 11, 0, 'controlling', 'sliti01@gmail.com', 'toto'),
+(12, 'BALBOULI', 'aymen', 15, 0, 'DF', 'balbouli_ess@gmail.com', 'toto'),
+(13, 'BEN CHRIFIA', 'MOAZ', 1, 0, 'SMRT', 'moaz@gmail.com', 'toto'),
+(14, 'LKAABI', 'Smir', 2, 0, 'SMRT', 'Samir@gmai.com', 'toto'),
+(15, 'WERTANI', 'Nawfel', 3, 0, 'SMRT', 'nawfel@gmail.com', 'toto'),
+(16, 'KHAZRI', 'Wahbi', 4, 0, 'SMRT', 'wahbi@hotmail.fr', 'toto'),
+(17, 'VILLA', 'david', 6, 0, 'SMRT', 'david@gmail.com', 'toto'),
+(18, 'LIONEL', 'Messi', 7, 0, 'SMRT', 'lionel@gmail.com', 'tuto');
+
+-- --------------------------------------------------------
+
+--
+-- Doublure de structure pour la vue `user_by_smrt`
+-- (Voir ci-dessous la vue réelle)
+--
+CREATE TABLE `user_by_smrt` (
+`matricule` int(11)
+,`nom` varchar(255)
+,`prenom` varchar(255)
+,`service` int(11)
+,`points` int(11)
+,`statut` varchar(255)
+,`email` varchar(255)
+,`password` varchar(255)
+,`id` int(11)
+,`serviceName` varchar(255)
+,`SMRT` varchar(255)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `user_by_smrt`
+--
+DROP TABLE IF EXISTS `user_by_smrt`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_by_smrt`  AS  select `user`.`matricule` AS `matricule`,`user`.`nom` AS `nom`,`user`.`prenom` AS `prenom`,`user`.`service` AS `service`,`user`.`points` AS `points`,`user`.`statut` AS `statut`,`user`.`email` AS `email`,`user`.`password` AS `password`,`departement`.`id` AS `id`,`departement`.`serviceName` AS `serviceName`,`departement`.`SMRT` AS `SMRT` from (`user` join `departement` on((`user`.`service` = `departement`.`id`))) where (`user`.`service` = (select `departement`.`id` from `departement` where (`departement`.`SMRT` = `setSMRT`()))) ;
 
 --
 -- Index pour les tables déchargées
@@ -190,9 +234,7 @@ INSERT INTO `user` (`matricule`, `nom`, `prenom`, `service`, `points`, `statut`,
 --
 ALTER TABLE `cip`
   ADD PRIMARY KEY (`numero`),
-  ADD KEY `natureGain` (`natureGain`),
-  ADD KEY `matricule` (`matricule`),
-  ADD KEY `service` (`service`);
+  ADD KEY `natureGain` (`natureGain`);
 
 --
 -- Index pour la table `cip_user`
@@ -227,25 +269,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `cip`
 --
 ALTER TABLE `cip`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `cip_user`
 --
 ALTER TABLE `cip_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `departement`
 --
 ALTER TABLE `departement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT pour la table `gain`
+--
+ALTER TABLE `gain`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `matricule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `matricule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Contraintes pour les tables déchargées

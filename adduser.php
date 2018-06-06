@@ -6,10 +6,11 @@ $nom=$_GET['nom'];
 $prenom=$_GET['prenom'];
 $service=$_GET['service'];
 $email=$_GET['email'];
-$role=$_GET['statut'];
+$statut=$_GET['statut'];
+$password=$_GET['password'];
 
      
-$sql = "INSERT INTO user(nom,prenom,service,email,statut) VALUES ('$nom','$prenom','$service','$email','$statut')";
+$sql = "INSERT INTO `user`(`nom`,`prenom`,`service`,`email`,`statut`,`password`) VALUES ('$nom','$prenom','$service','$email','$statut','$password')";
 
 if ($conn->query($sql) === TRUE) {
     echo "yes";
