@@ -23,7 +23,8 @@ if ($result->num_rows > 0) {
             echo json_encode($rows[0]);
 
 } else {
-    echo "0 results";
+    echo json_encode('{error:10,message:"user not found}"');
+
 }
 $conn->close(); 
  ?>
